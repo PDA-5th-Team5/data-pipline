@@ -156,16 +156,16 @@ def sorted_binning(df):
 
 
 def 일주일일년변동률구하는함수():
-    # # 오늘 날짜
-    # today_date = pd.to_datetime("today").strftime("%Y-%m-%d")
-    # # 1년 전
-    # one_year_ago = (pd.to_datetime("today") - pd.DateOffset(years=1)).strftime("%Y-%m-%d")
-    # # 7일 전
-    # seven_days_ago = (pd.to_datetime("today") - pd.DateOffset(days=7)).strftime("%Y-%m-%d")
+    # 오늘 날짜
+    today_date = pd.to_datetime("today").strftime("%Y-%m-%d")
+    # 1년 전
+    one_year_ago = (pd.to_datetime("today") - pd.DateOffset(years=1)).strftime("%Y-%m-%d")
+    # 7일 전
+    seven_days_ago = (pd.to_datetime("today") - pd.DateOffset(days=7)).strftime("%Y-%m-%d")
 
-    today_date = (pd.to_datetime("today") - pd.Timedelta(days=1)).strftime("%Y-%m-%d")
-    one_year_ago = (pd.to_datetime("today") - pd.Timedelta(days=1) - pd.DateOffset(years=1)).strftime("%Y-%m-%d")
-    seven_days_ago = (pd.to_datetime("today") - pd.Timedelta(days=1) - pd.DateOffset(days=7)).strftime("%Y-%m-%d")
+    # today_date = (pd.to_datetime("today") - pd.Timedelta(days=1)).strftime("%Y-%m-%d")
+    # one_year_ago = (pd.to_datetime("today") - pd.Timedelta(days=1) - pd.DateOffset(years=1)).strftime("%Y-%m-%d")
+    # seven_days_ago = (pd.to_datetime("today") - pd.Timedelta(days=1) - pd.DateOffset(days=7)).strftime("%Y-%m-%d")
 
     # stock 테이블 데이터 불러오기
 

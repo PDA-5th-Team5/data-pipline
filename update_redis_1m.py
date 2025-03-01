@@ -24,12 +24,6 @@ def get_redis_connection():
 # 매 1분마다 실행
 def update_1m():
     try:
-        current_time = datetime.now()
-        if current_time.weekday() < 5 and 9 <= current_time.hour < 18:
-            print("1분 간격 작업 실행 중...")
-            print(current_time)
-        else:
-            return
 
         redis_client = get_redis_connection()
         kospi_current_price = fetch_sector_data('KOSPI')

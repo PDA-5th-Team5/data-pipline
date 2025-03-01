@@ -7,12 +7,20 @@ source myenv/bin/activate
 # 라이브러리 설치 
 pip install -r requirements.txt  # 다른 환경에서 설치
 
+# 환경 변수 설정 
+nano .env 
+
 # 스케줄링 설정 
+crontab -l
 crontab -e
 
 # 매일 월~금 16:00 (오후 4시) 실행 → update_day
-0 18 * * 1-5 /home/user/data-pipline/myenv/bin/python /home/user/data-pipline/update_tasks.py day >> /home/user/logs/update_day.log 2>&1
-# 장중(월~금 09:00~18:00) 1~~분마다 실행 → update_1m
-* 9-17 * * 1-5 /home/user/data-pipline/myenv/bin/python /home/user/data-pipline/update_tasks.py 1m >> /home/user/logs/update_1m.log 2>&1
+0 16 * * 1-5 /home/user/data-pipline/myenv/bin/python /home/user/data-pipline/update_tasks.py >> /home/user/logs/update_day.log 2>&1
+
+# 장중(월~금 09:00~16:00) 1분마다 실행 → update_1m
+* 9-16 * * 1-5 /home/user/data-pipline/myenv/bin/python /home/user/data-pipline/update_redis_1m.py >> /home/user/logs/update_redis_1m.log 2>&1
+
+# 매일 월~금 16:10 (오후 4시 10분) 실행 → update_1d
+10 16 * * 1-5 /home/user/data-pipline/myenv/bin/python /home/user/data-pipline/update_redis_1d.py >> /home/user/logs/update_redis_1d.log 2>&1
 
 

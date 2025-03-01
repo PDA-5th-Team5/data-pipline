@@ -9,9 +9,30 @@ pip install -r requirements.txt  # 다른 환경에서 설치
 
 # 환경 변수 설정 
 nano .env 
+```shell
+# 한국 투자증권 api 실제₩계좌 key, scretkey
+APP_KEY=
+APP_SECRET=
+# 한국 투자증권 api 실제 계좌 번호
+ACC=
+ACC_NO=
+
+# mysql 연결 정보
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=
+DB_NAME=
+
+# redis 연결 정보
+REDIS_HOST=
+REDIS_PORT=
+REDIS_DB=
+```
 
 # 스케줄링 설정 
 crontab -l
+
 crontab -e
 
 # 매일 월~금 16:00 (오후 4시) 실행 → update_day

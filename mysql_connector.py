@@ -20,21 +20,6 @@ def get_db_connection():
 
     return create_engine(f"mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}")
 
-def get_db_connection():
-    """
-    .env 파일에 저장된 DB 정보를 사용하여 SQLAlchemy 엔진을 생성.
-    """
-    db_user = os.getenv("DB_USER")
-    db_password = os.getenv("DB_PASSWORD")
-    db_host = os.getenv("DB_HOST")
-    db_port = os.getenv("DB_PORT")
-    db_name = os.getenv("DB_NAME")
-
-    if not all([db_user, db_password, db_host, db_port, db_name]):
-        raise ValueError("DB 환경변수가 올바르게 설정되지 않았습니다.")
-
-    return create_engine(f"mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}")
-
 
 def upload_dataframe_to_mysql(df, table_name, if_exists="append", chunksize=1000):
     """
@@ -88,25 +73,11 @@ def read_table_to_dataframe(table_name):
         print(f"오류 발생: {e}")
         return None
 
-def execute_query(query, fetch=False):
-    """
-    SQL 쿼리를 실행하는 함수.
-
-    Args:
-        query (str): 실행할 SQL 쿼리.
-        fetch (bool): 데이터를 반환할지 여부. True이면 데이터를 반환.
-
-    Returns:
-        list 또는 None: fetch=True일 때 결과를 리스트로 반환, fetch=False일 경우 None.
-    """
+def execute_query(query):
     try:
         engine = get_db_connection()
-        with engine.connect() as connection:
-            if fetch:
-                result = connection.execute(query)
-                return [row for row in result]  # 결과를 리스트로 변환
-            else:
-                connection.execute(query)  # 데이터 수정/삽입/삭제
-    except SQLAlchemyError as e:
-        print(f"쿼리 실행 중 오류 발생: {e}")
+        df = pd.read_sql(query, con=engine)
+        return df
+    except Exception as e:
+        print(f"오류 발생: {e}")
         return None

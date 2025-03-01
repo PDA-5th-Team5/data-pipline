@@ -48,6 +48,14 @@ def save_df_to_redis_as_nested_json(redis_client, df, key_name):
 def save_stocks_to_redis(redis_client, stocks_data):
     """주식 데이터를 Redis에 저장하는 함수."""
     for stock in stocks_data:
-        key = f"stock:{stock['ticker']}"  # Redis 키 생성
+        key = f"{stock['ticker']}"  # Redis 키 생성
         redis_client.hmset(key, stock)  # 데이터를 해시 형식으로 저장
+        # print(f"Redis 저장 완료: {key} -> {stock}")
+
+def save_id_to_redis(redis_client, stocks_data):
+    """주식 데이터를 Redis에 저장하는 함수."""
+    for stock in stocks_data.itertuples(index=False, name=None):
+        key = f"{stock[0]}"  # stock_id 위치에 따라 인덱싱
+        stock_dict = {'stock_id': stock[0], 'week_rate_change': stock[1], 'year_rate_change': stock[2]}
+        redis_client.hmset(key, stock_dict)  # 데이터를 해시 형식으로 저장
         # print(f"Redis 저장 완료: {key} -> {stock}")

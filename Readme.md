@@ -10,7 +10,7 @@ pip install -r requirements.txt  # 다른 환경에서 설치
 # 스케줄링 설정 
 crontab -e
 
-# 매일 월~금 18:00 (오후 6시) 실행 → update_day
+# 매일 월~금 16:00 (오후 4시) 실행 → update_day
 0 18 * * 1-5 /home/user/data-pipline/myenv/bin/python /home/user/data-pipline/update_tasks.py day >> /home/user/logs/update_day.log 2>&1
 # 장중(월~금 09:00~18:00) 1~~분마다 실행 → update_1m
 * 9-17 * * 1-5 /home/user/data-pipline/myenv/bin/python /home/user/data-pipline/update_tasks.py 1m >> /home/user/logs/update_1m.log 2>&1

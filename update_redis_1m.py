@@ -24,8 +24,7 @@ def get_redis_connection():
 # 매 1분마다 실행
 def update_1m():
     try:
-
-        redis_client = get_redis_connection()
+        global redis_client
         kospi_current_price = fetch_sector_data('KOSPI')
         kosdaq_current_price = fetch_sector_data('KOSDAQ')
 

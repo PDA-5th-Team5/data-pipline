@@ -75,6 +75,7 @@ def stock_price_crawler(df, interval, n=1000):
         stock_id = row["stock_id"]
         ticker = row["ticker"]
         # 데이터 크롤링
+        time.sleep(0.5)
         data = fetch_stock_data(interval, stock_id, ticker, limit=n)
         unified_data.extend(data)
         df = pd.DataFrame(unified_data).drop(columns=['ticker'])

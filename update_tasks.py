@@ -27,6 +27,9 @@ def update_day():
         kosdaq_df = get_naver_stock_index("KOSDAQ", "KOSDAQ",1)
 
         df_market = pd.concat([kospi_df, kosdaq_df], ignore_index=True)
+        df_market = df_market[df_market['date'] == today_date]
+        print(df_market)
+        
         # MySQL에 업로드 (시장지표 가격 정보)
         mc.upload_dataframe_to_mysql(df_market, "market_indicator_price", "append")
     except Exception as e:

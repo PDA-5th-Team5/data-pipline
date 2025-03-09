@@ -72,10 +72,10 @@ def stock_price_crawler(df, interval, n=1000):
 
     # 각 종목에 대해 크롤링 수행
     for _, row in tqdm(df.iterrows(), total=len(df), desc=f"Processing stocks ({interval})"):
+        time.sleep(0.5)
         stock_id = row["stock_id"]
         ticker = row["ticker"]
         # 데이터 크롤링
-        time.sleep(0.5)
         data = fetch_stock_data(interval, stock_id, ticker, limit=n)
         unified_data.extend(data)
         df = pd.DataFrame(unified_data).drop(columns=['ticker'])
@@ -117,6 +117,7 @@ def get_naver_stock_index(market_code, market_name, days=500):
     df["date"] = pd.to_datetime(df["date"])  # 날짜 타입 변환
     df["price"] = df["price"].astype(float)  # float
     df = df.drop_duplicates(subset=['market', 'date'], keep='first')
+    df = df[df["date"] >= datetime.today() - timedelta(days=days)]
     return df
 
 
@@ -151,8 +152,8 @@ def sorted_binning(df):
             max_value = df2.loc[value_rows.index, col].max() if not value_rows.empty else None
             index_max_value.append([col, value, max_value])
 
-    result_df = pd.DataFrame(index_max_value, columns=["indicator", "value", "max_value"])
-    df.drop(columns=['market', 'sectors'], inplace=True)
+    result_df = pd.DataFrame(index_max_value, columns=["Column", "Value", "max_value"])
+
     return df, result_df
 
 
@@ -164,9 +165,9 @@ def 일주일일년변동률구하는함수():
     # 7일 전
     seven_days_ago = (pd.to_datetime("today") - pd.DateOffset(days=7)).strftime("%Y-%m-%d")
 
-    # today_date = (pd.to_datetime("today") - pd.Timedelta(days=4)).strftime("%Y-%m-%d")
-    # one_year_ago = (pd.to_datetime("today") - pd.Timedelta(days=4) - pd.DateOffset(years=1)).strftime("%Y-%m-%d")
-    # seven_days_ago = (pd.to_datetime("today") - pd.Timedelta(days=4) - pd.DateOffset(days=7)).strftime("%Y-%m-%d")
+    # today_date = (pd.to_datetime("today") - pd.Timedelta(days=1)).strftime("%Y-%m-%d")
+    # one_year_ago = (pd.to_datetime("today") - pd.Timedelta(days=1) - pd.DateOffset(years=1)).strftime("%Y-%m-%d")
+    # seven_days_ago = (pd.to_datetime("today") - pd.Timedelta(days=1) - pd.DateOffset(days=7)).strftime("%Y-%m-%d")
 
     # stock 테이블 데이터 불러오기
 

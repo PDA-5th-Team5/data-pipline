@@ -12,6 +12,7 @@ data
 .env
 .DS_Store
 listed_companies.csv
+/myenv
 
 # User-specific stuff
 .idea/**/workspace.xml
